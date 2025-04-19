@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulcan IoT | Registration Page</title>
+    <link rel="icon" href="vulcanlogo2.png" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            padding: 10px;
+        }
+        .register-container {
+            width: 90%;
+            max-width: 500px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .register-container h1 {
+            color: green;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        .register-container img {
+            height: 70px;
+            width: 70px;
+            margin: 20px auto;
+            display: block;
+        }
+        .input-container {
+            position: relative;
+            margin: 15px 0;
+        }
+        .input {
+            height: 45px;
+            width: 100%;
+            padding: 0 45px 0 15px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            background-color: gainsboro;
+            outline: none;
+            font-size: 1rem;
+        }
+        .input:focus {
+            border-color: green;
+            background-color: white;
+        }
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: grey;
+            cursor: pointer;
+        }
+        #register-btn {
+            width: 100%;
+            height: 45px;
+            border-radius: 30px;
+            background-color: green;
+            color: white;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+        #register-btn:hover {
+            background-color: grey;
+        }
+        .login-link {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .login-link a {
+            color: green;
+            text-decoration: none;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .register-container {
+                padding: 15px;
+            }
+            .register-container h1 {
+                font-size: 1.2rem;
+            }
+            .input {
+                height: 40px;
+                font-size: 0.9rem;
+            }
+            #register-btn {
+                height: 40px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Smart Irrigation Dashboard</h1>
+        <img src="vulcan-iot-logo.png" alt="Logo">
+        <form action="register.php" autocomplete="on" method="POST" onsubmit="return validateUsername()">
+            <div class="input-container">
+                <input class="input" type="text" placeholder="First Name Last Name" id="username" name="username" 
+                    pattern="^[A-Za-z]+ [A-Za-z]+$" 
+                    title="Enter First Name and Last Name separated by a space"
+                    required>
+                <i class='bx bxs-user input-icon'></i>
+            </div>
+            <div class="input-container">
+                <input class="input" type="password" placeholder="Password" id="password" name="password" required>
+                <i class="bx bx-hide input-icon" id="toggle-password"></i>
+            </div>
+            <div class="input-container">
+                <input class="input" type="password" placeholder="Confirm Password" id="confirm-password" name="confirm-password" required>
+                <i class="bx bx-hide input-icon" id="toggle-confirm-password"></i>
+            </div>
+            <div class="input-container">
+                <input class="input" type="tel" pattern="\+254[0-9]{9}" placeholder="Phone Number (+254...)" id="phone" name="phone" required>
+                <i class='bx bxs-phone input-icon'></i>
+            </div>
+            <div class="input-container">
+                <input class="input" type="text" placeholder="Area of Residence" id="residence" name="residence" required>
+                <i class='bx bxs-map input-icon'></i>
+            </div>
+            <button id="register-btn" type="submit">Register</button>
+            <div class="login-link">
+                <p>Already have an account? <a href="login.html">Login here</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Toggle Password Visibility
+        document.getElementById('toggle-password').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('bx-hide');
+            this.classList.toggle('bx-show');
+        });
+
+        document.getElementById('toggle-confirm-password').addEventListener('click', function() {
+            const confirmPasswordInput = document.getElementById('confirm-password');
+            const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPasswordInput.setAttribute('type', type);
+            this.classList.toggle('bx-hide');
+            this.classList.toggle('bx-show');
+        });
+
+        // Validate username format before submission
+        function validateUsername() {
+            const usernameInput = document.getElementById('username').value.trim();
+            const nameParts = usernameInput.split(" ");
+            
+            if (nameParts.length !== 2) {
+                alert("Please enter your first and last name, separated by a space.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
